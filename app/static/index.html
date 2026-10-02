@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>COSMIX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@380;520;640&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="grain">
+  <header class="nav" id="top">
+    <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span>COSMIX</a>
+    <nav class="tabs" aria-label="Sections">
+      <button type="button" class="tab active" data-tab="check">Check</button>
+      <button type="button" class="tab" data-tab="profile">Profile</button>
+      <button type="button" class="tab" data-tab="library">Library</button>
+      <button type="button" class="tab" data-tab="history">Past checks</button>
+    </nav>
+    <button type="button" class="tab engage" data-tab="check">Check a product</button>
+  </header>
+
+  <section class="scroll-stage" id="hero-stage">
+    <div class="sticky-frame">
+      <canvas id="stage" aria-hidden="true"></canvas>
+      <div class="vignette"></div>
+      <span class="hud hud-tl" aria-hidden="true"></span>
+      <span class="hud hud-tr" aria-hidden="true"></span>
+      <span class="hud hud-bl" aria-hidden="true"></span>
+      <span class="hud hud-br" aria-hidden="true"></span>
+
+      <div class="hud-label left">
+        <span class="tick"></span>
+        <span>Formula — live</span>
+      </div>
+      <div class="hud-label right">
+        <span>Studio light</span>
+        <span class="accent" id="glow-readout">00</span>
+        <span class="dot" aria-hidden="true"></span>
+      </div>
+
+      <div class="hero-copy" id="hero-copy">
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Shopping check // before the reel</p>
+        <h1>Read the list.<br><span>Then decide.</span></h1>
+        <p class="lede">Paste a shop link or the ingredient list. COSMIX compares those chemicals with your skin, allergies, and medicines.</p>
+      </div>
+
+      <div class="hero-late" id="hero-late">
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Protocol — ingredient list</p>
+        <h2>The feeling<br>is not <span>the formula.</span></h2>
+        <p class="mono-note">Scroll the studio. The check is the same every time.</p>
+      </div>
+
+      <figure class="quote quote-1 card-surface" data-show="0.12" data-hide="0.34">
+        <blockquote>A yellow tube in good light is not a reason to buy.</blockquote>
+        <figcaption><span>COSMIX</span><span class="accent">The reel</span></figcaption>
+      </figure>
+      <figure class="quote quote-2 card-surface" data-show="0.38" data-hide="0.58">
+        <blockquote>Same list, same profile, same answer. Nothing improvises the verdict.</blockquote>
+        <figcaption><span>COSMIX</span><span class="accent">The check</span></figcaption>
+      </figure>
+      <figure class="quote quote-3 card-surface" data-show="0.62" data-hide="0.84">
+        <blockquote>If a name is not in the library, COSMIX says it does not know.</blockquote>
+        <figcaption><span>COSMIX</span><span class="accent">Unknown chemicals</span></figcaption>
+      </figure>
+
+      <div class="scrub">
+        <div class="scrub-track"><div class="scrub-fill" id="hero-fill"></div></div>
+        <div class="scrub-meta">
+          <span id="hero-seq">SEQ 001 / 100</span>
+          <span>COSMIX // INGREDIENT CHECK</span>
+          <span>Scroll ↓</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scroll-stage" id="film-stage">
+    <div class="sticky-frame">
+      <canvas id="film" aria-hidden="true"></canvas>
+      <div class="vignette vignette-up"></div>
+      <span class="hud hud-tl" aria-hidden="true"></span>
+      <span class="hud hud-tr" aria-hidden="true"></span>
+      <span class="hud hud-bl" aria-hidden="true"></span>
+      <span class="hud hud-br" aria-hidden="true"></span>
+
+      <div class="hud-label left">
+        <span class="tick"></span>
+        <span>Campaign stills — archived</span>
+      </div>
+      <div class="hud-label right">
+        <span class="accent" id="film-seq">SEQ 001 / 004</span>
+        <span class="dot" aria-hidden="true"></span>
+      </div>
+
+      <div class="film-copy">
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Studio // stills</p>
+        <div class="film-titles">
+          <h2 id="film-a">The campaign<br><span>is the feeling.</span></h2>
+          <h2 id="film-b">The list<br><span>is the product.</span></h2>
+        </div>
+        <p class="lede">Cream, powder, a close crop of skin. None of that replaces the ingredient list on the tube.</p>
+      </div>
+
+      <figure class="quote quote-left quote-1 card-surface" data-show="0.12" data-hide="0.34">
+        <span class="accent kicker">01 — The reel</span>
+        <blockquote>Pretty light does not tell you what is inside.</blockquote>
+        <figcaption><span>COSMIX</span><span>Before you buy</span></figcaption>
+      </figure>
+      <figure class="quote quote-left quote-2 card-surface" data-show="0.38" data-hide="0.58">
+        <span class="accent kicker">02 — The list</span>
+        <blockquote>Paste the ingredients. Edit them. Then run the check.</blockquote>
+        <figcaption><span>COSMIX</span><span>Your confirmation</span></figcaption>
+      </figure>
+      <figure class="quote quote-left quote-3 card-surface" data-show="0.62" data-hide="0.82">
+        <span class="accent kicker">03 — The answer</span>
+        <blockquote>Short term and long term, against your skin, allergies, and medicines.</blockquote>
+        <figcaption><span>COSMIX</span><span>Not a diagnosis</span></figcaption>
+      </figure>
+
+      <div class="film-outro" id="film-outro">
+        <span class="accent kicker">Next — the check</span>
+        <button type="button" class="tab engage" data-tab="check">Open the check</button>
+      </div>
+
+      <div class="scrub">
+        <div class="scrub-track"><div class="scrub-fill" id="film-fill"></div></div>
+        <div class="scrub-meta">
+          <span>STUDIO // STILLS</span>
+          <span>COSMIX // PLAYBACK</span>
+          <span>Scroll ↓</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="bench">
+    <div class="systems">
+      <div class="systems-copy">
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>COSMIX // ready to check</p>
+        <h2>The verdict comes from the list and your profile.</h2>
+        <p class="lede">Skin tone is used for pigmentation risk. COSMIX does not score a product by how well it lightens your colour. This is a shopping check, not a doctor.</p>
+      </div>
+      <dl class="telemetry">
+        <div>
+          <dt>What it compares</dt>
+          <dd>Ingredient names against your skin, allergies, and medicines.</dd>
+          <strong>Your profile</strong>
+        </div>
+        <div>
+          <dt>What stays fixed</dt>
+          <dd>The same list always gives the same result.</dd>
+          <strong>No chatbot</strong>
+        </div>
+        <div>
+          <dt>What it will not do</dt>
+          <dd>A photo is stored on this computer. It is not a diagnosis.</dd>
+          <strong>No picture score</strong>
+        </div>
+        <div>
+          <dt>When it is unsure</dt>
+          <dd>Unknown names are named. They are not called safe.</dd>
+          <strong>Says so</strong>
+        </div>
+      </dl>
+    </div>
+
+    <section id="panel-check">
+      <div class="grid">
+        <form id="check-form" class="card">
+          <p class="using" id="using-profile">No profile yet. Use the example, or open Your profile.</p>
+          <button type="button" id="example-from-check" class="ghost">Use an example profile</button>
+          <label for="product-name">Product name</label>
+          <input id="product-name" name="product_name" autocomplete="off" placeholder="Example: Tenovate cream, or the serum from the reel">
+
+          <label for="product-url">Shop link, if you have one</label>
+          <div class="row">
+            <input id="product-url" name="source_url" inputmode="url" placeholder="https://">
+            <button type="button" id="read-link" class="secondary">Read this page</button>
+          </div>
+          <p class="hint" id="read-message">Some shops block automatic reading. Pasting the ingredient list is more accurate, and you can edit it before the check.</p>
+
+          <label for="category">What kind of product is it?</label>
+          <select id="category" name="category">
+            <option value="leave-on">Leave-on face</option>
+            <option value="rinse-off">Face or body wash</option>
+            <option value="body">Body lotion</option>
+            <option value="sunscreen">Sunscreen</option>
+            <option value="lip">Lip</option>
+            <option value="hair-rinse">Hair wash</option>
+            <option value="hair-leave">Hair leave-on, dye, or oil</option>
+          </select>
+
+          <label for="ingredients">Ingredient list</label>
+          <textarea id="ingredients" name="ingredient_text" rows="8" placeholder="Aqua, Glycerin, Niacinamide, Phenoxyethanol"></textarea>
+
+          <div class="samples" aria-label="Examples">
+            <button type="button" id="sample-risk" class="ghost">Risky cream</button>
+            <button type="button" id="sample-serum" class="ghost">Plain serum</button>
+            <button type="button" id="sample-scent" class="ghost">Scented serum</button>
+            <button type="button" id="sample-unknown" class="ghost">Unknown list</button>
+          </div>
+
+          <label for="photo">Photo of your skin, optional</label>
+          <input id="photo" name="photo" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+          <p class="hint">The photo is stored on this computer with the check. This version does not judge a diagnosis from a picture.</p>
+          <img id="photo-preview" alt="" hidden>
+
+          <button type="submit" id="check-button" class="primary">Check against my profile</button>
+        </form>
+
+        <aside class="card note">
+          <h2>How a check is decided</h2>
+          <ol>
+            <li>Your profile sets the rules: acne, eczema, pregnancy, a fragrance allergy, a steroid medicine.</li>
+            <li>The ingredient names are matched to a fixed library. The same list always gives the same result.</li>
+            <li>A chatbot does not invent the verdict. If a name is not in the library, COSMIX says it does not know.</li>
+          </ol>
+          <p>This is a shopping check, not a doctor.</p>
+        </aside>
+      </div>
+      <div id="result" class="card result" hidden></div>
+    </section>
+
+    <section id="panel-profile" hidden>
+      <form id="profile-form" class="card">
+        <div class="form-head">
+          <h2>Your skin and history</h2>
+          <button type="button" id="example-profile" class="ghost">Use an example profile</button>
+        </div>
+        <p class="hint">Saved on this computer in a local COSMIX folder, not in this project, so OneDrive does not upload your history or photos.</p>
+
+        <label for="profile-name">Name</label>
+        <input id="profile-name" required maxlength="60" placeholder="Your name">
+
+        <div class="split">
+          <div>
+            <label for="age-group">Age</label>
+            <select id="age-group">
+              <option value="adult">18 or older</option>
+              <option value="teen">13 to 17</option>
+              <option value="under_13">Under 13</option>
+            </select>
+          </div>
+          <div>
+            <label for="skin-type">Skin type</label>
+            <select id="skin-type">
+              <option value="combination">Combination</option>
+              <option value="normal">Normal</option>
+              <option value="dry">Dry</option>
+              <option value="oily">Oily</option>
+              <option value="sensitive">Sensitive</option>
+            </select>
+          </div>
+          <div>
+            <label for="skin-tone">Skin tone</label>
+            <select id="skin-tone">
+              <option value="medium">Medium</option>
+              <option value="fair">Fair</option>
+              <option value="light-medium">Light-medium</option>
+              <option value="deep">Deep</option>
+            </select>
+          </div>
+          <div>
+            <label for="life-stage">Right now</label>
+            <select id="life-stage">
+              <option value="none">None of these</option>
+              <option value="pregnant">Pregnant</option>
+              <option value="breastfeeding">Breastfeeding</option>
+              <option value="trying">Trying to conceive</option>
+            </select>
+          </div>
+        </div>
+
+        <fieldset>
+          <legend>What you want help with</legend>
+          <div class="chips" id="concerns">
+            <label class="chip"><input type="checkbox" name="concern" value="acne">Acne</label>
+            <label class="chip"><input type="checkbox" name="concern" value="pigmentation">Dark spots or uneven tone</label>
+            <label class="chip"><input type="checkbox" name="concern" value="dryness">Dryness</label>
+            <label class="chip"><input type="checkbox" name="concern" value="oiliness">Oiliness</label>
+            <label class="chip"><input type="checkbox" name="concern" value="eczema">Eczema or dermatitis</label>
+            <label class="chip"><input type="checkbox" name="concern" value="rosacea">Rosacea or easy flushing</label>
+            <label class="chip"><input type="checkbox" name="concern" value="aging">Aging</label>
+            <label class="chip"><input type="checkbox" name="concern" value="barrier">Damaged skin barrier</label>
+            <label class="chip"><input type="checkbox" name="concern" value="dandruff">Dandruff</label>
+            <label class="chip"><input type="checkbox" name="concern" value="hair">Hair thinning</label>
+            <label class="chip"><input type="checkbox" name="concern" value="sensitive">Easily irritated skin</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Allergies you already know</legend>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="allergy" value="fragrance">Fragrance</label>
+            <label class="chip"><input type="checkbox" name="allergy" value="parabens">Parabens</label>
+            <label class="chip"><input type="checkbox" name="allergy" value="lanolin">Lanolin</label>
+            <label class="chip"><input type="checkbox" name="allergy" value="nuts">Nuts or peanuts</label>
+            <label class="chip"><input type="checkbox" name="allergy" value="salicylates">Aspirin or salicylates</label>
+            <label class="chip"><input type="checkbox" name="allergy" value="sunscreen">Chemical sunscreens</label>
+            <label class="chip"><input type="checkbox" name="allergy" value="coconut">Coconut</label>
+            <label class="chip"><input type="checkbox" name="allergy" value="tea_tree">Tea tree</label>
+          </div>
+          <label for="allergy-notes">Other allergies, written as ingredient names</label>
+          <input id="allergy-notes" maxlength="2000" placeholder="Example: lanolin, peanuts, propylene glycol">
+        </fieldset>
+
+        <fieldset>
+          <legend>Medicines</legend>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="medicine" value="isotretinoin">Oral isotretinoin</label>
+            <label class="chip"><input type="checkbox" name="medicine" value="retinoid">Prescription retinoid cream</label>
+            <label class="chip"><input type="checkbox" name="medicine" value="steroid">Steroid cream</label>
+          </div>
+          <label for="medicine-notes">Medicine names, if you want them stored</label>
+          <input id="medicine-notes" maxlength="2000" placeholder="Example: Tretiva, Betnovate">
+        </fieldset>
+
+        <label for="history-notes">Other history you want kept with this profile</label>
+        <textarea id="history-notes" rows="4" maxlength="4000" placeholder="Past reactions, a dermatologist's advice, products that already failed."></textarea>
+        <p class="hint">The checker uses the boxes and the allergy names above. It does not guess a diagnosis from a long story.</p>
+
+        <div class="row">
+          <button type="submit" class="primary" id="save-profile">Save profile</button>
+          <button type="button" class="ghost" id="new-profile">New profile</button>
+        </div>
+        <p id="profile-status" class="status" role="status"></p>
+      </form>
+    </section>
+
+    <section id="panel-library" hidden>
+      <div class="card">
+        <h2>What COSMIX already knows</h2>
+        <p class="hint">General information, not your personal result. A personal result needs your profile and a full ingredient list.</p>
+        <label for="library-search">Search</label>
+        <input id="library-search" placeholder="Try clobetasol, niacinamide, parfum">
+        <div id="library-list" class="library"></div>
+      </div>
+    </section>
+
+    <section id="panel-history" hidden>
+      <div class="card">
+        <h2>Past checks</h2>
+        <div id="history-list" class="history"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <div class="footer-top">
+      <div>
+        <p class="brand"><span class="dot" aria-hidden="true"></span>COSMIX</p>
+        <p id="footer-note">COSMIX is a cosmetic shopping check. It is not a medical diagnosis and it does not promise a product will work.</p>
+      </div>
+      <nav class="footer-links" aria-label="Archive">
+        <button type="button" class="tab" data-tab="check"><span>Check</span><small>Ingredient list</small></button>
+        <button type="button" class="tab" data-tab="profile"><span>Profile</span><small>Skin and medicines</small></button>
+        <button type="button" class="tab" data-tab="library"><span>Library</span><small>Known chemicals</small></button>
+        <button type="button" class="tab" data-tab="history"><span>Past checks</span><small>On this computer</small></button>
+      </nav>
+    </div>
+    <div class="footer-meta">
+      <span>Local check · saved on this computer</span>
+      <span>Not a doctor</span>
+    </div>
+  </footer>
+  <div id="alert" class="alert" hidden role="alert"></div>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="/scene.js"></script>
+  <script type="module" src="/reel.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
