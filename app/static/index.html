@@ -6,136 +6,91 @@
   <title>COSMIX</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@380;520;640&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@380;520;640&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 </head>
-<body class="grain">
+<body>
   <header class="nav" id="top">
     <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span>COSMIX</a>
     <nav class="tabs" aria-label="Sections">
+      <button type="button" class="tab" data-tab="analyze">Analyze</button>
       <button type="button" class="tab active" data-tab="check">Check</button>
+      <button type="button" class="tab" data-tab="compare">Compare</button>
       <button type="button" class="tab" data-tab="profile">Profile</button>
       <button type="button" class="tab" data-tab="library">Library</button>
-      <button type="button" class="tab" data-tab="history">Past checks</button>
+      <button type="button" class="tab" data-tab="history">History</button>
     </nav>
-    <button type="button" class="tab engage" data-tab="check">Check a product</button>
   </header>
 
-  <section class="scroll-stage" id="hero-stage">
-    <div class="sticky-frame">
-      <canvas id="stage" aria-hidden="true"></canvas>
-      <div class="vignette"></div>
-      <span class="hud hud-tl" aria-hidden="true"></span>
-      <span class="hud hud-tr" aria-hidden="true"></span>
-      <span class="hud hud-bl" aria-hidden="true"></span>
-      <span class="hud hud-br" aria-hidden="true"></span>
-
-      <div class="hud-label left">
-        <span class="tick"></span>
-        <span>Formula — live</span>
+  <section class="hero hero-3d" id="hero-stage">
+    <div class="hero-scene" id="hero-scene" aria-hidden="true">
+      <div class="layer hero-bg" data-depth="-0.35">
+        <img src="/media/253609022757997073.jpg" alt="" width="642" height="1000">
       </div>
-      <div class="hud-label right">
-        <span>Studio light</span>
-        <span class="accent" id="glow-readout">00</span>
-        <span class="dot" aria-hidden="true"></span>
-      </div>
-
-      <div class="hero-copy" id="hero-copy">
-        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Shopping check // before the reel</p>
-        <h1>Read the list.<br><span>Then decide.</span></h1>
-        <p class="lede">Paste a shop link or the ingredient list. COSMIX compares those chemicals with your skin, allergies, and medicines.</p>
-      </div>
-
-      <div class="hero-late" id="hero-late">
-        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Protocol — ingredient list</p>
-        <h2>The feeling<br>is not <span>the formula.</span></h2>
-        <p class="mono-note">Scroll the studio. The check is the same every time.</p>
-      </div>
-
-      <figure class="quote quote-1 card-surface" data-show="0.12" data-hide="0.34">
-        <blockquote>A yellow tube in good light is not a reason to buy.</blockquote>
-        <figcaption><span>COSMIX</span><span class="accent">The reel</span></figcaption>
-      </figure>
-      <figure class="quote quote-2 card-surface" data-show="0.38" data-hide="0.58">
-        <blockquote>Same list, same profile, same answer. Nothing improvises the verdict.</blockquote>
-        <figcaption><span>COSMIX</span><span class="accent">The check</span></figcaption>
-      </figure>
-      <figure class="quote quote-3 card-surface" data-show="0.62" data-hide="0.84">
-        <blockquote>If a name is not in the library, COSMIX says it does not know.</blockquote>
-        <figcaption><span>COSMIX</span><span class="accent">Unknown chemicals</span></figcaption>
-      </figure>
-
-      <div class="scrub">
-        <div class="scrub-track"><div class="scrub-fill" id="hero-fill"></div></div>
-        <div class="scrub-meta">
-          <span id="hero-seq">SEQ 001 / 100</span>
-          <span>COSMIX // INGREDIENT CHECK</span>
-          <span>Scroll ↓</span>
-        </div>
+      <div class="layer hero-badge" data-depth="1.5" style="--rot: 0deg">
+        <span class="hero-badge-label">Sample reading</span>
+        <span class="hero-badge-row"><span>Niacinamide</span><em>Active · vitamin B3</em></span>
+        <span class="hero-badge-row"><span>Phenoxyethanol</span><em>Preservative</em></span>
+        <span class="hero-badge-row"><span>Unobtanium ferment</span><em class="muted">Not verified</em></span>
       </div>
     </div>
+    <div class="hero-inner">
+      <div class="hero-copy" id="hero-copy">
+        <p class="eyebrow">Ingredient intelligence</p>
+        <h1>Know what you<br>put on <span>your skin.</span></h1>
+        <p class="lede">Paste a product link or an ingredient list. COSMIX explains each ingredient, shows the documented concerns with their sources, and tells you what it could not verify.</p>
+        <form id="hero-analyze" class="hero-form">
+          <label class="sr" for="hero-url">Product link</label>
+          <input id="hero-url" type="url" inputmode="url" placeholder="Paste a product link (https://…)" autocomplete="url">
+          <button type="submit" class="primary">Read ingredients</button>
+        </form>
+        <p class="hero-alt">No link? <button type="button" class="linkish" id="hero-manual">Paste the ingredient list instead</button></p>
+        <ul class="hero-facts" aria-label="How COSMIX works">
+          <li><strong>Sourced</strong><span>Every concern links to its source</span></li>
+          <li><strong>Honest</strong><span>Unknown names stay unknown</span></li>
+          <li><strong>Private</strong><span>No account needed</span></li>
+        </ul>
+      </div>
+    </div>
+    <span class="hero-scroll" aria-hidden="true">Scroll</span>
   </section>
 
-  <section class="scroll-stage" id="film-stage">
-    <div class="sticky-frame">
-      <canvas id="film" aria-hidden="true"></canvas>
-      <div class="vignette vignette-up"></div>
-      <span class="hud hud-tl" aria-hidden="true"></span>
-      <span class="hud hud-tr" aria-hidden="true"></span>
-      <span class="hud hud-bl" aria-hidden="true"></span>
-      <span class="hud hud-br" aria-hidden="true"></span>
-
-      <div class="hud-label left">
-        <span class="tick"></span>
-        <span>Campaign stills — archived</span>
+  <section class="steps" aria-label="How it works">
+    <article class="tilt-card" data-tilt>
+      <div class="step-media"><img src="/media/Instant%20Glow%20Bronzing%20Cream%20Creative%20Direction.jpg" alt="" loading="lazy"></div>
+      <div class="step-body">
+        <span class="step-no">01</span>
+        <h2>Add the product</h2>
+        <p>Paste a shop link, or paste the ingredient list from the box. You can review and edit the list before anything is analysed.</p>
       </div>
-      <div class="hud-label right">
-        <span class="accent" id="film-seq">SEQ 001 / 004</span>
-        <span class="dot" aria-hidden="true"></span>
+    </article>
+    <article class="tilt-card" data-tilt>
+      <div class="step-media"><img src="/media/How%20to%20identify%20a%20bad%20beautician_.jpg" alt="" loading="lazy"></div>
+      <div class="step-body">
+        <span class="step-no">02</span>
+        <h2>Read each ingredient</h2>
+        <p>Names are matched to a curated library. Functions, documented concerns, and evidence levels are shown with their sources.</p>
       </div>
-
-      <div class="film-copy">
-        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Studio // stills</p>
-        <div class="film-titles">
-          <h2 id="film-a">The campaign<br><span>is the feeling.</span></h2>
-          <h2 id="film-b">The list<br><span>is the product.</span></h2>
-        </div>
-        <p class="lede">Cream, powder, a close crop of skin. None of that replaces the ingredient list on the tube.</p>
+    </article>
+    <article class="tilt-card" data-tilt>
+      <div class="step-media"><img src="/media/3448137208035682.jpg" alt="" loading="lazy"></div>
+      <div class="step-body">
+        <span class="step-no">03</span>
+        <h2>Compare and decide</h2>
+        <p>Compare two or more products side by side. COSMIX does not crown a winner or call any product safe.</p>
       </div>
-
-      <figure class="quote quote-left quote-1 card-surface" data-show="0.12" data-hide="0.34">
-        <span class="accent kicker">01 — The reel</span>
-        <blockquote>Pretty light does not tell you what is inside.</blockquote>
-        <figcaption><span>COSMIX</span><span>Before you buy</span></figcaption>
-      </figure>
-      <figure class="quote quote-left quote-2 card-surface" data-show="0.38" data-hide="0.58">
-        <span class="accent kicker">02 — The list</span>
-        <blockquote>Paste the ingredients. Edit them. Then run the check.</blockquote>
-        <figcaption><span>COSMIX</span><span>Your confirmation</span></figcaption>
-      </figure>
-      <figure class="quote quote-left quote-3 card-surface" data-show="0.62" data-hide="0.82">
-        <span class="accent kicker">03 — The answer</span>
-        <blockquote>Short term and long term, against your skin, allergies, and medicines.</blockquote>
-        <figcaption><span>COSMIX</span><span>Not a diagnosis</span></figcaption>
-      </figure>
-
-      <div class="film-outro" id="film-outro">
-        <span class="accent kicker">Next — the check</span>
-        <button type="button" class="tab engage" data-tab="check">Open the check</button>
-      </div>
-
-      <div class="scrub">
-        <div class="scrub-track"><div class="scrub-fill" id="film-fill"></div></div>
-        <div class="scrub-meta">
-          <span>STUDIO // STILLS</span>
-          <span>COSMIX // PLAYBACK</span>
-          <span>Scroll ↓</span>
-        </div>
-      </div>
-    </div>
+    </article>
   </section>
 
   <main id="bench">
+    <div class="section-switch" aria-label="Workspace">
+      <button type="button" class="tab" data-tab="analyze">Analyze</button>
+      <button type="button" class="tab active" data-tab="check">Profile check</button>
+      <button type="button" class="tab" data-tab="compare">Compare</button>
+      <button type="button" class="tab" data-tab="profile">Profile</button>
+      <button type="button" class="tab" data-tab="library">Library</button>
+      <button type="button" class="tab" data-tab="history">History</button>
+    </div>
     <div class="systems">
       <div class="systems-copy">
         <p class="eyebrow"><span class="dot" aria-hidden="true"></span>COSMIX // ready to check</p>
@@ -165,6 +120,101 @@
         </div>
       </dl>
     </div>
+
+    <section id="panel-analyze" hidden>
+      <div class="grid">
+        <div class="card">
+          <h2>Read an ingredient list</h2>
+          <p class="hint">Paste a product link or the ingredient text. Cosmix does not call a product safe, and it does not invent ingredients the page did not show.</p>
+          <div class="row">
+            <button type="button" class="secondary" id="show-url">Product link</button>
+            <button type="button" class="ghost" id="show-manual">Paste ingredients</button>
+          </div>
+
+          <form id="url-form">
+            <label for="analyze-url">Product URL</label>
+            <input id="analyze-url" type="url" inputmode="url" placeholder="https://" autocomplete="url" required>
+            <p class="hint" id="extract-status" role="status">HTTP and HTTPS links only. Private and internal addresses are refused.</p>
+            <button type="submit" class="primary" id="extract-button">Read this page</button>
+          </form>
+
+          <form id="manual-form" hidden>
+            <label for="manual-ingredients">Ingredient list</label>
+            <textarea id="manual-ingredients" rows="8" placeholder="Water, Glycerin, Niacinamide, Cetearyl Alcohol, Dimethicone, Phenoxyethanol."></textarea>
+            <p class="hint" id="parse-status" role="status">Commas, line breaks, and semicolons are treated as separators.</p>
+            <div id="parse-preview" class="chips"></div>
+            <div class="row">
+              <button type="button" class="secondary" id="preview-parse">Preview names</button>
+              <button type="submit" class="primary" id="manual-analyze">Analyze list</button>
+              <button type="button" class="ghost" id="clear-manual">Clear</button>
+            </div>
+          </form>
+        </div>
+        <aside class="card">
+          <h2>How a result is built</h2>
+          <ol>
+            <li>The list is split and matched to the library. Unmatched names stay unknown.</li>
+            <li>Concerns are copied from retrieved notes. A model cannot add a source that was not retrieved.</li>
+            <li>A name you asked to avoid is labeled as your preference, not as a new scientific fact.</li>
+          </ol>
+          <p class="hint">Barcode scanning and photo OCR are not in this version. The same analysis accepts text from those later.</p>
+          <h3>Your flags</h3>
+          <label for="pref-avoid">Avoid</label>
+          <input id="pref-avoid" placeholder="parfum, lanolin">
+          <label for="pref-prefer">Prefer</label>
+          <input id="pref-prefer" placeholder="niacinamide, glycerin">
+          <label for="pref-investigate">Investigate</label>
+          <input id="pref-investigate" placeholder="retinol">
+          <button type="button" class="ghost" id="save-prefs">Save flags on this computer</button>
+          <p class="hint" id="pref-status" role="status"></p>
+        </aside>
+      </div>
+
+      <div id="extract-view" class="card" hidden>
+        <p class="eyebrow">Extraction</p>
+        <h2 id="extract-title">Product page</h2>
+        <p id="extract-message"></p>
+        <p class="tiny" id="extract-meta"></p>
+        <img id="extract-image" alt="" hidden>
+        <label for="extract-ingredients">Ingredient list to analyze</label>
+        <textarea id="extract-ingredients" rows="8"></textarea>
+        <div class="row">
+          <button type="button" class="primary" id="extract-continue">Continue to analysis</button>
+          <button type="button" class="secondary" id="extract-fallback">Paste manually instead</button>
+        </div>
+      </div>
+      <div id="analysis-view" class="card result" hidden></div>
+      <form id="feedback-form" class="card" hidden>
+        <h2>Report a problem</h2>
+        <label for="feedback-category">What is wrong?</label>
+        <select id="feedback-category">
+          <option value="extraction">Incorrect ingredient extraction</option>
+          <option value="identification">Incorrect ingredient identification</option>
+          <option value="missing_source">Missing source</option>
+          <option value="confusing_explanation">Confusing explanation</option>
+          <option value="outdated_product">Outdated product information</option>
+          <option value="other">Something else</option>
+        </select>
+        <label for="feedback-message">What should be reviewed?</label>
+        <textarea id="feedback-message" rows="4" maxlength="4000" required></textarea>
+        <button type="submit" class="secondary">Send feedback</button>
+        <p class="hint" id="feedback-status" role="status">No account is required. Do not include your name or medical history.</p>
+      </form>
+    </section>
+
+    <section id="panel-compare" hidden>
+      <div class="card">
+        <h2>Compare products</h2>
+        <p class="hint">Shared names are not shared doses. A longer list is not a better product. Missing names are marked incomplete.</p>
+        <div id="compare-products" class="compare-grid"></div>
+        <div class="row">
+          <button type="button" class="ghost" id="add-compare">Add a product</button>
+          <button type="button" class="primary" id="run-compare">Compare</button>
+        </div>
+        <p class="hint" id="compare-status" role="status"></p>
+      </div>
+      <div id="compare-view" class="card" hidden></div>
+    </section>
 
     <section id="panel-check">
       <div class="grid">
@@ -343,6 +393,8 @@
       <div class="card">
         <h2>Past checks</h2>
         <div id="history-list" class="history"></div>
+        <h2>Ingredient analyses</h2>
+        <div id="analysis-history" class="history"></div>
       </div>
     </section>
   </main>
@@ -354,10 +406,10 @@
         <p id="footer-note">COSMIX is a cosmetic shopping check. It is not a medical diagnosis and it does not promise a product will work.</p>
       </div>
       <nav class="footer-links" aria-label="Archive">
-        <button type="button" class="tab" data-tab="check"><span>Check</span><small>Ingredient list</small></button>
-        <button type="button" class="tab" data-tab="profile"><span>Profile</span><small>Skin and medicines</small></button>
-        <button type="button" class="tab" data-tab="library"><span>Library</span><small>Known chemicals</small></button>
-        <button type="button" class="tab" data-tab="history"><span>Past checks</span><small>On this computer</small></button>
+        <button type="button" class="tab" data-tab="analyze"><span>Analyze</span><small>Link or list</small></button>
+        <button type="button" class="tab" data-tab="check"><span>Check</span><small>Against a profile</small></button>
+        <button type="button" class="tab" data-tab="compare"><span>Compare</span><small>Two or more lists</small></button>
+        <button type="button" class="tab" data-tab="history"><span>History</span><small>On this computer</small></button>
       </nav>
     </div>
     <div class="footer-meta">
@@ -366,16 +418,8 @@
     </div>
   </footer>
   <div id="alert" class="alert" hidden role="alert"></div>
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
-      "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
-    }
-  }
-  </script>
-  <script type="module" src="/scene.js"></script>
-  <script type="module" src="/reel.js"></script>
+  <script src="/depth.js"></script>
   <script src="/app.js"></script>
+  <script src="/analyze.js"></script>
 </body>
 </html>

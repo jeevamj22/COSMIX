@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import os
 import threading
 import uuid
@@ -10,11 +11,14 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
-from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from app import db
+from app.api.v1 import router as v1_router
+from app.config import load_settings
 from app.engine import analyze, search_ingredients
 from app.fetch_page import extract_from_url
 
@@ -89,18 +93,49 @@ def _sniff_image(data: bytes) -> str | None:
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
+    settings = load_settings()
+    logging.basicConfig(level=getattr(logging, settings.log_level, logging.INFO))
     db.data_dir()
+    if not settings.ai_enabled:
+        logging.getLogger("cosmix").info("AI provider is not configured. Analysis uses retrieved records only.")
     if os.getenv("COSMIX_OPEN_BROWSER") == "1":
         threading.Timer(1.0, lambda: webbrowser.open("http://127.0.0.1:8000")).start()
     yield
 
 
 app = FastAPI(title="COSMIX", lifespan=lifespan)
+_settings = load_settings()
+if _settings.cors_origins:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=list(_settings.cors_origins),
+        allow_methods=["GET", "POST", "PUT", "DELETE"],
+        allow_headers=["Content-Type", "X-Cosmix-Admin-Token"],
+    )
+
+
+@app.exception_handler(HTTPException)
+async def http_error(_request, exc: HTTPException):
+    if isinstance(exc.detail, dict):
+        message = str(exc.detail.get("message") or "COSMIX could not finish that.")
+        code = str(exc.detail.get("error_code") or "error")
+    else:
+        message = str(exc.detail)
+        code = {400: "invalid_request", 404: "not_found", 429: "rate_limited"}.get(exc.status_code, "error")
+    return JSONResponse(status_code=exc.status_code, content={"detail": message, "message": message, "error_code": code})
+
+
+@app.get("/health")
+def health_root():
+    return {"status": "ok"}
 
 
 @app.get("/api/health")
 def health():
     return {"ok": True, "name": "COSMIX"}
+
+
+app.include_router(v1_router)
 
 
 @app.get("/api/ingredients")

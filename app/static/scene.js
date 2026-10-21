@@ -6,37 +6,37 @@ const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
-renderer.setClearColor(0x0a0a0b, 1);
+renderer.setClearColor(0xfdfcfa, 1);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.05;
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0a0a0b);
+scene.background = new THREE.Color(0xfdfcfa);
 const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 40);
 camera.position.set(0, 0.15, 7.4);
 
 const pmrem = new THREE.PMREMGenerator(renderer);
 scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-scene.add(new THREE.AmbientLight(0xfff6ea, 0.55));
-const key = new THREE.DirectionalLight(0xfff3d2, 2.4);
+scene.add(new THREE.AmbientLight(0xffffff, 0.72));
+const key = new THREE.DirectionalLight(0xfff8f2, 2.1);
 key.position.set(2.2, 4.2, 3.2);
 scene.add(key);
-const blush = new THREE.DirectionalLight(0xd8c4f2, 0.85);
+const blush = new THREE.DirectionalLight(0xf4c4d4, 0.95);
 blush.position.set(-3.2, 0.4, 2);
 scene.add(blush);
 
 const butter = new THREE.MeshPhysicalMaterial({
-  color: 0xf3e27a,
-  roughness: 0.32,
-  metalness: 0.02,
-  clearcoat: 0.45,
-  clearcoatRoughness: 0.25,
+  color: 0xf8f0e8,
+  roughness: 0.22,
+  metalness: 0.03,
+  clearcoat: 0.55,
+  clearcoatRoughness: 0.18,
 });
 const lilac = new THREE.MeshPhysicalMaterial({
-  color: 0xc9b6e6,
-  roughness: 0.28,
-  metalness: 0.04,
-  clearcoat: 0.3,
+  color: 0xe8b4c4,
+  roughness: 0.24,
+  metalness: 0.08,
+  clearcoat: 0.4,
 });
 
 function makeTube() {

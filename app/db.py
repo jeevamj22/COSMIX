@@ -56,6 +56,44 @@ def connect():
         )
         """
     )
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS analyses (
+            id INTEGER PRIMARY KEY,
+            created_at TEXT NOT NULL,
+            product_name TEXT,
+            brand TEXT,
+            source_url TEXT,
+            input_method TEXT,
+            ingredient_text TEXT,
+            result TEXT NOT NULL
+        )
+        """
+    )
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS preferences (
+            id INTEGER PRIMARY KEY,
+            kind TEXT NOT NULL,
+            ingredient_name TEXT NOT NULL,
+            created_at TEXT NOT NULL,
+            UNIQUE (kind, ingredient_name)
+        )
+        """
+    )
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS feedback (
+            id INTEGER PRIMARY KEY,
+            created_at TEXT NOT NULL,
+            category TEXT NOT NULL,
+            message TEXT NOT NULL,
+            product_url TEXT,
+            ingredient_text TEXT,
+            context TEXT
+        )
+        """
+    )
     try:
         yield conn
         conn.commit()
@@ -185,3 +223,135 @@ def _remove_photo(name: str | None) -> None:
     path = data_dir() / "uploads" / name
     if path.is_file():
         path.unlink()
+
+
+def save_analysis(result: dict, ingredient_text: str) -> dict:
+    stamp = _now()
+    stored = dict(result)
+    stored.pop("saved_id", None)
+    with connect() as conn:
+        cursor = conn.execute(
+            """
+            INSERT INTO analyses (
+                created_at, product_name, brand, source_url, input_method, ingredient_text, result
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                stamp,
+                stored.get("product_name") or "",
+                stored.get("brand") or "",
+                stored.get("source_url") or "",
+                stored.get("input_method") or "manual",
+                ingredient_text[:20000],
+                json.dumps(stored),
+            ),
+        )
+        conn.commit()
+        analysis_id = int(cursor.lastrowid)
+    saved = get_analysis(analysis_id)
+    if not saved:
+        raise RuntimeError("Could not save the analysis.")
+    return saved
+
+
+def get_analysis(analysis_id: int) -> dict | None:
+    with connect() as conn:
+        row = conn.execute("SELECT * FROM analyses WHERE id = ?", (analysis_id,)).fetchone()
+    return _analysis_row(row) if row else None
+
+
+def list_analyses(limit: int = 20, offset: int = 0) -> dict:
+    limit = max(1, min(limit, 100))
+    offset = max(0, offset)
+    with connect() as conn:
+        total = conn.execute("SELECT COUNT(*) AS n FROM analyses").fetchone()["n"]
+        rows = conn.execute(
+            "SELECT * FROM analyses ORDER BY id DESC LIMIT ? OFFSET ?",
+            (limit, offset),
+        ).fetchall()
+    return {"total": total, "limit": limit, "offset": offset, "items": [_analysis_row(row) for row in rows]}
+
+
+def delete_analysis(analysis_id: int) -> bool:
+    with connect() as conn:
+        cursor = conn.execute("DELETE FROM analyses WHERE id = ?", (analysis_id,))
+        conn.commit()
+        return cursor.rowcount > 0
+
+
+def _analysis_row(row: sqlite3.Row) -> dict:
+    result = json.loads(row["result"])
+    result["saved_id"] = row["id"]
+    result["created_at"] = row["created_at"]
+    result["ingredient_text"] = row["ingredient_text"] or ""
+    return result
+
+
+def get_preferences() -> dict:
+    grouped = {"avoid": [], "prefer": [], "investigate": []}
+    with connect() as conn:
+        rows = conn.execute("SELECT kind, ingredient_name FROM preferences ORDER BY id").fetchall()
+    for row in rows:
+        if row["kind"] in grouped:
+            grouped[row["kind"]].append(row["ingredient_name"])
+    return grouped
+
+
+def replace_preferences(groups: dict) -> dict:
+    cleaned = {"avoid": [], "prefer": [], "investigate": []}
+    with connect() as conn:
+        conn.execute("DELETE FROM preferences")
+        for kind in cleaned:
+            seen = set()
+            for name in groups.get(kind) or []:
+                label = " ".join(str(name).split())[:80]
+                key = label.casefold()
+                if len(label) < 2 or key in seen:
+                    continue
+                seen.add(key)
+                cleaned[kind].append(label)
+                conn.execute(
+                    "INSERT INTO preferences (kind, ingredient_name, created_at) VALUES (?, ?, ?)",
+                    (kind, label, _now()),
+                )
+        conn.commit()
+    return cleaned
+
+
+def save_feedback(category: str, message: str, product_url: str, ingredient_text: str, context: str) -> dict:
+    stamp = _now()
+    with connect() as conn:
+        cursor = conn.execute(
+            """
+            INSERT INTO feedback (created_at, category, message, product_url, ingredient_text, context)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (stamp, category, message[:4000], product_url[:2000], ingredient_text[:4000], context[:2000]),
+        )
+        conn.commit()
+        feedback_id = int(cursor.lastrowid)
+    return {"id": feedback_id, "created_at": stamp, "category": category}
+
+
+def list_feedback(limit: int = 50, offset: int = 0) -> dict:
+    limit = max(1, min(limit, 100))
+    offset = max(0, offset)
+    with connect() as conn:
+        total = conn.execute("SELECT COUNT(*) AS n FROM feedback").fetchone()["n"]
+        rows = conn.execute(
+            "SELECT * FROM feedback ORDER BY id DESC LIMIT ? OFFSET ?",
+            (limit, offset),
+        ).fetchall()
+    items = [
+        {
+            "id": row["id"],
+            "created_at": row["created_at"],
+            "category": row["category"],
+            "message": row["message"],
+            "product_url": row["product_url"] or "",
+            "ingredient_text": row["ingredient_text"] or "",
+            "context": row["context"] or "",
+        }
+        for row in rows
+    ]
+    return {"total": total, "limit": limit, "offset": offset, "items": items}

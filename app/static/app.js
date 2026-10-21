@@ -156,13 +156,20 @@ function showTab(name) {
   document.querySelectorAll(".tab").forEach((button) => {
     button.classList.toggle("active", button.dataset.tab === name);
   });
-  ["check", "profile", "library", "history"].forEach((panel) => {
-    $(`panel-${panel}`).hidden = panel !== name;
+  ["check", "profile", "library", "history", "analyze", "compare"].forEach((panel) => {
+    const node = document.getElementById(`panel-${panel}`);
+    if (node) node.hidden = panel !== name;
   });
   document.getElementById("bench")?.scrollIntoView({ behavior: "smooth", block: "start" });
   if (name === "library") loadLibrary();
-  if (name === "history") loadHistory();
+  if (name === "history") {
+    loadHistory();
+    if (window.cosmixLoadAnalyses) window.cosmixLoadAnalyses();
+  }
+  if (name === "analyze" && window.cosmixPrepareAnalyze) window.cosmixPrepareAnalyze();
 }
+
+window.cosmixShowTab = showTab;
 
 async function loadLibrary() {
   if (!state.library.length) state.library = await api("/api/ingredients");

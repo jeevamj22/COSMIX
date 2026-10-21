@@ -1,0 +1,13 @@
+services:
+  cosmix:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      COSMIX_DATA_DIR: /data
+      COSMIX_LOG_LEVEL: INFO
+    volumes:
+      - cosmix-data:/data
+
+volumes:
+  cosmix-data:

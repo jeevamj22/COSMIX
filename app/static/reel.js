@@ -2,7 +2,7 @@ const PHOTOS = [
   "/media/Instant%20Glow%20Bronzing%20Cream%20Creative%20Direction.jpg",
   "/media/What%20Is%20Zinc%20PCA%2C%20and%20What%20Does%20It%20Do%20For%20Your%20Skin_.jpg",
   "/media/How%20to%20identify%20a%20bad%20beautician_.jpg",
-  "/media/3448137208035682.jpg",
+  "/media/253609022757997073.jpg",
 ];
 
 const heroStage = document.getElementById("hero-stage");
