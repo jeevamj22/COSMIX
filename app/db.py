@@ -94,6 +94,24 @@ def connect():
         )
         """
     )
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS draft_cards (
+            id INTEGER PRIMARY KEY,
+            name_key TEXT NOT NULL,
+            display_name TEXT NOT NULL,
+            annex TEXT NOT NULL,
+            list_status TEXT NOT NULL,
+            reference_code TEXT,
+            statement TEXT NOT NULL,
+            source_url TEXT NOT NULL,
+            source_title TEXT NOT NULL,
+            review_status TEXT NOT NULL,
+            imported_at TEXT NOT NULL,
+            UNIQUE (name_key, annex)
+        )
+        """
+    )
     try:
         yield conn
         conn.commit()
