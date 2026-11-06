@@ -564,6 +564,38 @@ footer {
 
 @media (max-width: 800px) {
   .nav .tabs { display: none; }
+  .nav { padding-top: calc(0.75rem + env(safe-area-inset-top)); }
+  body { padding-bottom: calc(4.2rem + env(safe-area-inset-bottom)); }
+  .section-switch {
+    position: fixed;
+    z-index: 45;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+    gap: 0.35rem;
+    background: rgba(253, 252, 250, 0.96);
+    border-top: 1px solid var(--line);
+    backdrop-filter: blur(16px);
+    padding: 0.4rem 0.55rem calc(0.4rem + env(safe-area-inset-bottom));
+  }
+  .section-switch .section-tab {
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: none;
+  }
+  .section-switch .section-tab.active {
+    background: var(--ink);
+    color: #fff;
+    box-shadow: none;
+  }
+  input, select, textarea { font-size: 16px; }
+  .primary, .secondary, .ghost { min-height: 44px; }
   .scroll-stage { height: 260vh; }
   .hero-copy h1, .film-titles h2, .systems-copy h2 { font-size: 2.5rem; }
   .quote, .quote-left.quote-1, .quote-left.quote-2, .quote-left.quote-3 {

@@ -1,5 +1,5 @@
 /* COSMIX offline shell — caches static assets only; API calls stay uncached. */
-const CACHE_NAME = "cosmix-shell-v1";
+const CACHE_NAME = "cosmix-shell-v2";
 
 const SHELL_ASSETS = [
   "/",
