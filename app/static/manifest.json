@@ -1,0 +1,28 @@
+{
+  "id": "/",
+  "name": "COSMIX",
+  "short_name": "COSMIX",
+  "description": "Understand cosmetic ingredient lists with source-linked explanations. Not medical advice.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fdfcfa",
+  "theme_color": "#c41e6a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["health", "lifestyle", "shopping"],
+  "lang": "en"
+}

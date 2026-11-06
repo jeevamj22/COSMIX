@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#c41e6a">
+  <meta name="description" content="COSMIX helps you read cosmetic ingredient lists with source-linked explanations. Not a medical diagnosis.">
   <title>COSMIX</title>
+  <link rel="manifest" href="/manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@380;520;640&display=swap" rel="stylesheet">
@@ -13,12 +16,13 @@
   <header class="nav" id="top">
     <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span>COSMIX</a>
     <nav class="tabs" aria-label="Sections">
-      <button type="button" class="tab" data-tab="analyze">Analyze</button>
-      <button type="button" class="tab active" data-tab="check">Check</button>
-      <button type="button" class="tab" data-tab="compare">Compare</button>
-      <button type="button" class="tab" data-tab="profile">Profile</button>
-      <button type="button" class="tab" data-tab="library">Library</button>
-      <button type="button" class="tab" data-tab="history">History</button>
+      <button type="button" class="tab section-tab" data-tab="analyze">Analyze</button>
+      <button type="button" class="tab active section-tab" data-tab="check">Check</button>
+      <button type="button" class="tab section-tab" data-tab="compare">Compare</button>
+      <button type="button" class="tab section-tab" data-tab="profile">Profile</button>
+      <button type="button" class="tab section-tab" data-tab="library">Library</button>
+      <button type="button" class="tab section-tab" data-tab="history">History</button>
+      <button type="button" class="tab section-tab" data-tab="about">About</button>
     </nav>
   </header>
 
@@ -48,7 +52,7 @@
         <ul class="hero-facts" aria-label="How COSMIX works">
           <li><strong>Sourced</strong><span>Every concern links to its source</span></li>
           <li><strong>Honest</strong><span>Unknown names stay unknown</span></li>
-          <li><strong>Private</strong><span>No account needed</span></li>
+          <li><strong>Local</strong><span>Profiles and history stay on this device</span></li>
         </ul>
       </div>
     </div>
@@ -84,12 +88,13 @@
 
   <main id="bench">
     <div class="section-switch" aria-label="Workspace">
-      <button type="button" class="tab" data-tab="analyze">Analyze</button>
-      <button type="button" class="tab active" data-tab="check">Profile check</button>
-      <button type="button" class="tab" data-tab="compare">Compare</button>
-      <button type="button" class="tab" data-tab="profile">Profile</button>
-      <button type="button" class="tab" data-tab="library">Library</button>
-      <button type="button" class="tab" data-tab="history">History</button>
+      <button type="button" class="tab section-tab" data-tab="analyze">Analyze</button>
+      <button type="button" class="tab active section-tab" data-tab="check">Profile check</button>
+      <button type="button" class="tab section-tab" data-tab="compare">Compare</button>
+      <button type="button" class="tab section-tab" data-tab="profile">Profile</button>
+      <button type="button" class="tab section-tab" data-tab="library">Library</button>
+      <button type="button" class="tab section-tab" data-tab="history">History</button>
+      <button type="button" class="tab section-tab" data-tab="about">About</button>
     </div>
     <div class="systems">
       <div class="systems-copy">
@@ -397,6 +402,49 @@
         <div id="analysis-history" class="history"></div>
       </div>
     </section>
+
+    <section id="panel-about" hidden>
+      <div class="card trust-lead">
+        <p class="eyebrow">Trust &amp; evidence</p>
+        <h2>What COSMIX is — and what it is not</h2>
+        <p class="lede">COSMIX helps you read ingredient lists and compare products using a curated library and documented sources. It does <em>not</em> diagnose skin conditions, judge photos, or guarantee that a product is safe or effective for you.</p>
+      </div>
+      <div class="trust-grid">
+        <article class="card trust-card">
+          <h3>Evidence first</h3>
+          <p>Documented concerns come from retrieved records and sources the app already has. Optional AI rewrites only cite sources that were retrieved; the model does not invent new hazards.</p>
+        </article>
+        <article class="card trust-card">
+          <h3>Honest unknowns</h3>
+          <p>If a name is not in the library, COSMIX says so. Shop pages that hide lists behind a wall are not a reason to guess ingredients.</p>
+        </article>
+        <article class="card trust-card">
+          <h3>Privacy on this device</h3>
+          <p>There is no login in this build. Profiles, checks, analyses, and optional photos are stored in your local COSMIX data folder (<code>%LOCALAPPDATA%\COSMIX</code> on Windows), not in the project repo.</p>
+        </article>
+        <article class="card trust-card">
+          <h3>Install as an app</h3>
+          <p>This site is a <strong>Progressive Web App</strong>: add it to your home screen from the browser menu for a standalone experience. The offline shell may show this page without a network; live checks still need the server.</p>
+        </article>
+      </div>
+      <div class="card faq-block">
+        <h2>Limitations (quick)</h2>
+        <ul class="faq-list">
+          <li><strong>Not medical advice.</strong> Use a qualified clinician for diagnosis and treatment.</li>
+          <li><strong>Not every shop cooperates.</strong> Automatic page reading is best-effort; manual paste is supported.</li>
+          <li><strong>No concentration math from order.</strong> Ingredient order is not used to infer amounts.</li>
+          <li><strong>India focus, global sources.</strong> Regulatory notes may reference EU or other jurisdictions; local law may differ.</li>
+        </ul>
+      </div>
+      <div class="card faq-block">
+        <h2>Roadmap (from the product blueprint)</h2>
+        <p class="hint">The live multi-user service (accounts, PostgreSQL, private cloud storage) is planned after the core engine is stable on real product labels. This week we ship trust copy, PWA install, and automated tests in CI.</p>
+        <ul class="faq-list">
+          <li><strong>Now:</strong> local web app, evidence-grounded library, profile check, compare, history.</li>
+          <li><strong>Next:</strong> hosted auth, tenant data, and a modern responsive UI at scale.</li>
+        </ul>
+      </div>
+    </section>
   </main>
 
   <footer id="footer">
@@ -406,10 +454,11 @@
         <p id="footer-note">COSMIX is a cosmetic shopping check. It is not a medical diagnosis and it does not promise a product will work.</p>
       </div>
       <nav class="footer-links" aria-label="Archive">
-        <button type="button" class="tab" data-tab="analyze"><span>Analyze</span><small>Link or list</small></button>
-        <button type="button" class="tab" data-tab="check"><span>Check</span><small>Against a profile</small></button>
-        <button type="button" class="tab" data-tab="compare"><span>Compare</span><small>Two or more lists</small></button>
-        <button type="button" class="tab" data-tab="history"><span>History</span><small>On this computer</small></button>
+        <button type="button" class="tab section-tab" data-tab="analyze"><span>Analyze</span><small>Link or list</small></button>
+        <button type="button" class="tab section-tab" data-tab="check"><span>Check</span><small>Against a profile</small></button>
+        <button type="button" class="tab section-tab" data-tab="compare"><span>Compare</span><small>Two or more lists</small></button>
+        <button type="button" class="tab section-tab" data-tab="history"><span>History</span><small>On this computer</small></button>
+        <button type="button" class="tab section-tab" data-tab="about"><span>About</span><small>Trust &amp; limits</small></button>
       </nav>
     </div>
     <div class="footer-meta">
@@ -421,5 +470,6 @@
   <script src="/depth.js"></script>
   <script src="/app.js"></script>
   <script src="/analyze.js"></script>
+  <script src="/pwa.js" defer></script>
 </body>
 </html>

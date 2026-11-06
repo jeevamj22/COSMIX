@@ -38,6 +38,10 @@ Profiles, checks, analyses, preferences, feedback, and photos are stored in `%LO
 
 Skin tone is used for pigmentation risk in the profile check. COSMIX does not recommend products for lightening skin.
 
+## Progressive Web App (PWA)
+
+COSMIX ships a web app manifest and a small service worker so you can **install** the site from a supported browser (look for *Install app* or *Add to Home screen*). The offline shell may cache the static page and scripts; **analysis and checks still need the COSMIX server** running. Open **About** in the app for limitations, privacy on this device, and what is planned for a future hosted release.
+
 ## Configuration
 
 Copy `.env.example` to `.env` only if you need optional settings. `run.bat` does not load `.env` by itself. Set the variables in the shell, or in the process manager, before you start uvicorn.

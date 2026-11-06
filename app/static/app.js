@@ -78,7 +78,7 @@ async function saveProfile() {
   const body = profileFromForm();
   if (!body.name) {
     showAlert("Add your name on the profile first.");
-    document.querySelector('[data-tab="profile"]').click();
+    document.querySelector('.section-tab[data-tab="profile"]')?.click();
     throw new Error("missing name");
   }
   const saved = state.profileId
@@ -153,10 +153,10 @@ function renderResult(check) {
 }
 
 function showTab(name) {
-  document.querySelectorAll(".tab").forEach((button) => {
+  document.querySelectorAll(".section-tab").forEach((button) => {
     button.classList.toggle("active", button.dataset.tab === name);
   });
-  ["check", "profile", "library", "history", "analyze", "compare"].forEach((panel) => {
+  ["check", "profile", "library", "history", "analyze", "compare", "about"].forEach((panel) => {
     const node = document.getElementById(`panel-${panel}`);
     if (node) node.hidden = panel !== name;
   });
@@ -230,7 +230,7 @@ async function loadHistory() {
   });
 }
 
-document.querySelectorAll(".tab").forEach((button) => {
+document.querySelectorAll(".section-tab").forEach((button) => {
   button.addEventListener("click", () => showTab(button.dataset.tab));
 });
 

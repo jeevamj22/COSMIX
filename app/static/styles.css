@@ -323,10 +323,25 @@ main { position: relative; z-index: 2; background: var(--bg); }
 .telemetry dd { margin: 0; grid-column: 1; color: var(--muted); }
 .telemetry strong { grid-row: 1 / span 2; align-self: center; font-size: 1.35rem; letter-spacing: -0.04em; }
 
-#panel-check, #panel-profile, #panel-library, #panel-history, #panel-analyze, #panel-compare {
+#panel-check, #panel-profile, #panel-library, #panel-history, #panel-analyze, #panel-compare, #panel-about {
   width: min(1120px, calc(100% - 2rem));
   margin: 0 auto 2rem;
 }
+.trust-lead .lede { max-width: 52ch; }
+.trust-lead .lede em { font-style: normal; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto 1rem;
+}
+.trust-card h3 { margin-top: 0; }
+.faq-block { width: min(1120px, calc(100% - 2rem)); margin: 0 auto 1rem; }
+.faq-block h2 { margin-top: 0; }
+.faq-list { margin: 0.5rem 0 0; padding-left: 1.15rem; color: var(--muted); }
+.faq-list li { margin: 0.45rem 0; line-height: 1.45; }
+.faq-list strong { color: var(--ink); }
 .grid { display: grid; grid-template-columns: 1.4fr 0.8fr; gap: 1rem; align-items: start; }
 .card {
   background: var(--card);
